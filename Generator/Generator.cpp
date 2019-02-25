@@ -31,7 +31,7 @@ void getLink(){
 
 // Gen a random long long from l to r
 mt19937_64 gen(chrono::steady_clock::now().time_since_epoch().count());
-    
+
 ll Rand(ll l, ll r){
     uniform_int_distribution<ll> rnd(l,r);
     return rnd(gen);
@@ -59,8 +59,6 @@ string testcase(int a){
     return Link+"TestCases\\"+s;
 }
 
-char c[105][105];
-
 int main()
 {
     ios::sync_with_stdio(0);
@@ -72,37 +70,15 @@ int main()
         string s=testcase(iT);
         ofstream inp(testcase(iT));
         gen = mt19937_64(chrono::steady_clock::now().time_since_epoch().count());
-        ll m = Rand(1, 5);
-        ll n = Rand(1, 5);
+        
+        ll k = Rand(1, 5);
+        ll n = Rand(1, 10);
+        inp << k << " " << n << endl;
 
-        inp << m << endl << n << endl;
-
-        FOR (i, 1, m) {
-            FOR (j, 1, n) {
-                c[i][j] = '#';                
-            }
-        }
-
-        FOR (i, 1, m) {
-            FOR (j, 1, n) {
-                if (Rand(0, 4) != 0) {
-                    c[i][j] = '.';
-                }
-            }
-        }
-
-        c[1][Rand(1, n)] = 'S';
-        c[m][Rand(1, n)] = 'E';
-
-        FOR (i, 1, m) {
-            FOR (j, 1, n) {
-                inp << c[i][j] << " ";
-            }
-            inp << endl;
-        }
-
+        FOR (i, 1, k) inp << Rand(0, 5) << " "; inp << endl;
+        FOR (i, 1, k) inp << Rand(0, 5) << " ";
     }
 
 
-         return 0;
+    return 0;
 }

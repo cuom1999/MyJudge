@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ShowResult extends JFrame{
-	static String Link;
-	File report = new File (Link+"Chambai\\report.txt");
+	static String LINK;
+	File report = new File (LINK + "Chambai\\report.txt");
 	String S;
 	String res;
 	JOptionPane showResult= new JOptionPane();
@@ -18,21 +18,21 @@ public class ShowResult extends JFrame{
 		}
 		catch(Exception e){}
 
-		char st=res.charAt(0);
-		if (st=='A'){
-			String S="<html><font color=#4de80d font-weight=bold size=20> "+res;
+		char st = res.charAt(0);
+		if (st == 'A'){
+			String S = "<html><font color=#4de80d font-weight=bold size=20> "+res;
 			showResult.showMessageDialog(null,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\GreenTick.png"));
 		}
-		else if (st=='C'){
-			String S="<html><font color=#fef201 font-weight=bold size=20> "+res;
+		else if (st == 'C'){
+			String S = "<html><font color=#fef201 font-weight=bold size=20> "+res;
 			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Warning.png"));
 		}
-		else if (st=='T' && res.charAt(1)=='I'){
-			String S="<html><font color=#498cd3 font-weight=bold size=20> "+res;
+		else if (st == 'T' && res.charAt(1)=='I'){
+			String S = "<html><font color=#498cd3 font-weight=bold size=20> "+res;
 			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Clock.png"));
 		}
 		else{
-			String S="<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n"+res;
+			String S = "<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n"+res;
 			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\CE.png"));
 		}
 	}
@@ -50,7 +50,7 @@ public class ShowResult extends JFrame{
 		try {
 			File pathLink = new File("D:\\Path\\Path.txt");
 			Scanner getLink = new Scanner(pathLink);
-			Link = getLink.next();
+			LINK = getLink.next();
 		}
 		catch (Exception e) {
 			System.out.println("Wrong Link!");

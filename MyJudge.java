@@ -6,16 +6,19 @@ import java.awt.event.*;
 
 public class MyJudge extends JFrame{
 	Desktop desktop = Desktop.getDesktop();
-	public static String Link;
-	public String optionList[]={"SoFile", "Float", "Checker"};
-	JLabel testNum = new JLabel("Number of Test: ");
-	JTextField testNumInput = new JTextField("",8);
-	JLabel timeLimit =new JLabel("Time Limit: ");
+
+	public static String LINK;
+
+	public String optionList[] = {"SoFile", "Float", "Checker"};
+
+	JLabel testNum   		  = new JLabel("Number of Test: ");
+	JTextField testNumInput   = new JTextField("",8);
+	JLabel timeLimit 		  = new JLabel("Time Limit: ");
 	JTextField timeLimitInput = new JTextField("",8);
-	JLabel error = new JLabel("Error: ");
-	JTextField errorInput = new JTextField("",8);
-	JButton change = new JButton("Activate Changes!");
-	JComboBox option = new JComboBox(optionList);
+	JLabel error 			  = new JLabel("Error: ");
+	JTextField errorInput 	  = new JTextField("",8);
+	JButton change 			  = new JButton("Activate Changes!");
+	JComboBox option 		  = new JComboBox(optionList);
 
 
 	JButton button1 = new JButton("Open Generator");
@@ -28,16 +31,17 @@ public class MyJudge extends JFrame{
 	JButton button8 = new JButton("Sample Input");
 
 	ButtonAction buttonAction = new ButtonAction();
-	JTextArea submission = new JTextArea("Submission here!",26,60);
-	JTextArea solution = new JTextArea("Solution here!",26,60);
-	JTextField announce = new JTextField("Hello!!!",30);
-	JScrollPane scroll1 = new JScrollPane(submission);
-	JScrollPane scroll2 = new JScrollPane(solution);
-
-	JOptionPane showResult = new JOptionPane();
-	FlowLayout fl = new FlowLayout();
+	JTextArea submission 	  = new JTextArea("Submission here!",26,60);
+	JTextArea solution 		  = new JTextArea("Solution here!",26,60);
+	JTextField announce 	  = new JTextField("Hello!!!",30);
+	JScrollPane scroll1 	  = new JScrollPane(submission);
+	JScrollPane scroll2 	  = new JScrollPane(solution);
+	JOptionPane showResult    = new JOptionPane();
+	
+	FlowLayout fl 			  = new FlowLayout();
+	
 	String res;
-	File report = new File (Link+"Chambai\\report.txt");
+	File report = new File (LINK + "Chambai\\report.txt");
 	
 	public MyJudge(){
 		super("MyJudge");
@@ -57,16 +61,17 @@ public class MyJudge extends JFrame{
 
 	public void createTop(){
 		try{
-			File fileTestNum = new File (Link+"Data\\Number_Of_Test.txt");
-			File fileTimeLimit = new File(Link+"Data\\TimeLimit.txt");
-			File fileError = new File(Link+"Data\\Error.txt");
+			File fileTestNum   = new File(LINK + "Data\\Number_Of_Tests.txt");
+			File fileTimeLimit = new File(LINK + "Data\\TimeLimit.txt");
+			File fileError     = new File(LINK + "Data\\Error.txt");
+			
 			testNumInput.setText(new Scanner(fileTestNum).next());
 			timeLimitInput.setText(new Scanner(fileTimeLimit).next());
 			errorInput.setText(new Scanner(fileError).next());
 		}
 		catch(Exception e){
-
 		}
+
 		change.addActionListener(buttonAction);
 		option.setEditable(false);
 		add(testNum);
@@ -112,7 +117,6 @@ public class MyJudge extends JFrame{
 		add(button5);
 		add(button6);
 		add(button7);
-		//add(button2);
 	}
 
 	public void createAnnounce(){
@@ -124,32 +128,33 @@ public class MyJudge extends JFrame{
 
 	public class ButtonAction implements ActionListener {
 		public void actionPerformed (ActionEvent e){
-			if (e.getSource()==button1){
+			if (e.getSource() == button1){
 				try {			
-					desktop.open(new File(Link+"Generator\\Generator.cpp"));
+					desktop.open(new File(LINK + "Generator\\Generator.cpp"));
 					announce.setText("Open Generator successfully!");
 				}
 				catch(Exception ee){
 					announce.setText("Fail to Open Generator!");
 				}
 			}
-			if (e.getSource()==button2){
+			if (e.getSource() == button2){
 				try {			
-					desktop.open(new File(Link+"Generator\\Generator.exe"));
+					desktop.open(new File(LINK + "Generator\\Generator.exe"));
 					announce.setText("Run Generator successfully!");
 				}
 				catch(Exception ee){
 					announce.setText("Fail to Run Generator!");
 				}
 			} 
-			if (e.getSource()==button3){
+			if (e.getSource() == button3){
 				String sub = submission.getText();
 				String sol = solution.getText();
+
 				try{
-					Formatter copySub = new Formatter(Link+"Submission\\main.cpp");
-					Formatter copySol = new Formatter(Link+"Solution\\main.cpp");
-					copySub.format("%s",sub);
-					copySol.format("%s",sol);		
+					Formatter copySub = new Formatter(LINK + "Submission\\main.cpp");
+					Formatter copySol = new Formatter(LINK + "Solution\\main.cpp");
+					copySub.format("%s", sub);
+					copySol.format("%s", sol);		
 					copySub.close();
 					copySol.close();			
 					announce.setText("Copy successfully!!!");
@@ -157,47 +162,54 @@ public class MyJudge extends JFrame{
 				catch (Exception eee) {
 					announce.setText("Fail to Copy Texts!!!");
 				}
-				int w=option.getSelectedIndex();
-				if (w==0){ //So file
+
+				int opt = option.getSelectedIndex();
+
+				if (opt == 0){ //So file
 					try{
-						desktop.open(new File(Link+"ChamBai\\SoFile.exe"));
+						desktop.open(new File(LINK + "ChamBai\\SoFile.exe"));
 						announce.setText("Compile and Run successfully!!!");
 					}
+
 					catch(Exception eeee){
 						announce.setText("Fail to run SoFile.exe!!!");
 					}
 				}
-				else if (w==1) { //Float
+
+				else if (opt == 1) { //Float
 					try{
-						desktop.open(new File(Link+"ChamBai\\Float.exe"));
+						desktop.open(new File(LINK + "ChamBai\\Float.exe"));
 						announce.setText("Compile and Run successfully!!!");
 					}
+
 					catch(Exception eeee){
 						announce.setText("Fail to run Float.exe!!!");
 					}
 				}
-				else if (w == 2) { //Checker
+
+				else if (opt == 2) { //Checker
 					try{
-						desktop.open(new File(Link+"ChamBai\\Checker\\Checker.exe"));
+						desktop.open(new File(LINK+"ChamBai\\Checker.exe"));
 						announce.setText("Compile and Run successfully!!!");
 					}
+
 					catch(Exception eeee){
 						announce.setText("Fail to run Checker.exe!!!");
 					}
 				}
 			}
-			if (e.getSource()==button4){
+			if (e.getSource() == button4){
 				try{
-					desktop.open(new File(Link+"ChamBai\\SoFile_Compiled\\SoFile.exe"));
+					desktop.open(new File(LINK+"ChamBai\\SoFile_Compiled.exe"));
 					announce.setText("Run successfully!!!");
 				}
 				catch(Exception eeee){
 					announce.setText("Fail to run SoFile_Compiled.exe!!!");
 				}
 			}
-			if (e.getSource()==button5){
+			if (e.getSource() == button5){
 				try{
-					desktop.open(new File(Link+"ChamBai\\ExportFile\\input.txt"));
+					desktop.open(new File(LINK+"ChamBai\\ExportFile\\input.txt"));
 					
 					announce.setText("Open Input Test successfully!!!");
 				}
@@ -205,42 +217,43 @@ public class MyJudge extends JFrame{
 					announce.setText("Fail to open Input Test!");
 				}
 			}
-			if (e.getSource()==button6){
+			if (e.getSource() == button6){
 				try{			
-					desktop.open(new File(Link+"ChamBai\\ExportFile\\output.txt"));
+					desktop.open(new File(LINK+"ChamBai\\ExportFile\\output.txt"));
 					announce.setText("Open Output successfully!!!");
 				}
+
 				catch(Exception ee){
 					announce.setText("Fail to open Output!!!");
 				}
 			}
-			if (e.getSource()==button7){
+			if (e.getSource() == button7){
 				try{			
-					desktop.open(new File(Link+"ChamBai\\ExportFile\\ans.txt"));
+					desktop.open(new File(LINK+"ChamBai\\ExportFile\\ans.txt"));
 					announce.setText("Open Answer successfully!");
 				}
 				catch(Exception ee){
 					announce.setText("Fail to open Answer!!!");
 				}
 			}
-			if (e.getSource()==button8){
+			if (e.getSource() == button8){
 				try{			
-					desktop.open(new File(Link+"TestCases\\test1.txt"));
+					desktop.open(new File(LINK+"TestCases\\test1.txt"));
 					announce.setText("Open Sample successfully!");
 				}
 				catch(Exception ee){
 					announce.setText("Fail to open Sample!!!");
 				}
 			}
-			if (e.getSource()==change){
+			if (e.getSource() == change){
 				try{
-					Formatter f = new Formatter(Link+"Data\\Number_Of_Test.txt");
+					Formatter f = new Formatter(LINK + "Data\\Number_Of_Tests.txt");
 					f.format("%s",testNumInput.getText());
 					f.close();
-					f= new Formatter(Link+"Data\\TimeLimit.txt");
+					f= new Formatter(LINK+"Data\\TimeLimit.txt");
 					f.format("%s",timeLimitInput.getText());
 					f.close();
-					f=new Formatter(Link+"Data\\Error.txt");
+					f=new Formatter(LINK+"Data\\Error.txt");
 					f.format("%s",errorInput.getText());
 					f.close();
 					announce.setText("Activated changes!!!");
@@ -254,9 +267,9 @@ public class MyJudge extends JFrame{
 
 	private static void getLink(){
 		try {
-			File pathLink= new File("D:\\Path\\Path.txt");
-			Scanner getLink = new Scanner(pathLink);
-			Link=getLink.next();
+			File pathLink = new File("D:\\Path\\Path.txt");
+			Scanner inpLink = new Scanner(pathLink);
+			LINK = inpLink.next();
 		}
 		catch (Exception e) {
 			System.out.println("Wrong Link!");

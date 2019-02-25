@@ -117,7 +117,7 @@ int Compile(string filecpp){
     string file=filecpp.substr(0,filecpp.length()-4);
     string file_o=file+".o";
     string file_exe=file+".exe";
-    string s1="g++ -g -O2 -static -std=gnu++14  "+filecpp+" -o "+file;
+    string s1="g++ -g -O2 -static -std=c++14 -Wl,--stack=268435456 -O2 " + filecpp + " -o " + file;
     //string s2="\"C:\\Program Files\\CodeBlocks\\MinGW\\bin\\g++.exe\"  -o "+file_exe+" "+file_o;
     const char *S1=s1.c_str();
     //const char *S2=s2.c_str();
