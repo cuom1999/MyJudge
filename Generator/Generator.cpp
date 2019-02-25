@@ -22,11 +22,11 @@ using namespace std;
 typedef pair < int, int > pii;
 typedef pair < ll, ll > II;
 
-string Link;
+string LINK;
 
 void getLink(){
     ifstream Path("D:\\Path\\Path.txt");
-    Path>>Link;
+    Path >> LINK;
 }
 
 // Gen a random long long from l to r
@@ -41,22 +41,22 @@ ll Rand(ll l, ll r){
 //    shuffle(array.begin(), array.end(), gen);
 
 
-string Number_To_String(int a){
+string numberToString(int a){
     string s;
     while (a){
-        int b=a%10;
-        s+=b+'0';
-        a/=10;
+        int b = a % 10;
+        s += b + '0';
+        a /= 10;
     }
     reverse(all(s));
     return s;
 }
 
 string testcase(int a){
-    string s="test";
-    s+=Number_To_String(a);
-    s+=".txt";
-    return Link+"TestCases\\"+s;
+    string s = "test";
+    s += numberToString(a);
+    s += ".txt";
+    return LINK + "TestCases\\" + s;
 }
 
 int main()
