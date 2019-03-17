@@ -59,26 +59,38 @@ string testcase(int a){
     return LINK + "TestCases\\" + s;
 }
 
+
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(NULL);
     getLink();
 
+    int numTests = 100;
+
+    // delete the testcase folder first
+    system(("rmdir /s /q " + LINK + "TestCases").c_str()); 
+    system(("mkdir " + LINK + "TestCases").c_str());
+
+    // change data in Number_Of_Tests.txt
+    ofstream tmpFile(LINK + "Data\\Number_Of_Tests.txt");
+    tmpFile << numTests << endl;
+
     // Start from here
-    FOR (iT,1,100){
-        string s=testcase(iT);
+    FOR (iT, 1, numTests){
         ofstream inp(testcase(iT));
         gen = mt19937_64(chrono::steady_clock::now().time_since_epoch().count());
-        
-        ll k = Rand(1, 5);
-        ll n = Rand(1, 10);
-        inp << k << " " << n << endl;
 
-        FOR (i, 1, k) inp << Rand(0, 5) << " "; inp << endl;
-        FOR (i, 1, k) inp << Rand(0, 5) << " ";
+        ll n = Rand(1, 8);
+
+        ll k = Rand(1, n);
+
+        inp << n << " " << k << endl;
+
+        FOR (i, 1, n) {
+            inp << Rand(1, 30) << " "; 
+        }
     }
-
-
+    
     return 0;
 }

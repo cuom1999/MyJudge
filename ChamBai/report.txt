@@ -1,1 +1,3 @@
-Compiled Error
+WA on position 10 : Expected 9.51288848, found 1.00000000, diff: 8.51288848
+
+WRONG ANSWER ON TEST 1 ! 

@@ -37,7 +37,7 @@ bool checker(string file1, string file2){
         return 0;
     }
 
-    int i=0;
+    int i = 0;
 
     while (i < V1.size()) {
         s3 = V1[i];

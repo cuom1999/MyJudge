@@ -12,12 +12,13 @@ public class MyJudge extends JFrame{
 	public String optionList[] = {"SoFile", "Float", "Checker"};
 
 	JLabel testNum   		  = new JLabel("Number of Test: ");
-	JTextField testNumInput   = new JTextField("",8);
+	JTextField testNumInput   = new JTextField("", 8);
 	JLabel timeLimit 		  = new JLabel("Time Limit: ");
-	JTextField timeLimitInput = new JTextField("",8);
+	JTextField timeLimitInput = new JTextField("", 8);
 	JLabel error 			  = new JLabel("Error: ");
-	JTextField errorInput 	  = new JTextField("",8);
+	JTextField errorInput 	  = new JTextField("", 8);
 	JButton change 			  = new JButton("Activate Changes!");
+	JButton useAvailable	  = new JButton("Use Available Files");
 	JComboBox option 		  = new JComboBox(optionList);
 
 
@@ -73,7 +74,9 @@ public class MyJudge extends JFrame{
 		}
 
 		change.addActionListener(buttonAction);
+		useAvailable.addActionListener(buttonAction);
 		option.setEditable(false);
+
 		add(testNum);
 		add(testNumInput);
 		add(timeLimit);
@@ -81,6 +84,7 @@ public class MyJudge extends JFrame{
 		add(error);
 		add(errorInput);
 		add(change);
+		add(useAvailable);
 		add(option);
 	}
 
@@ -245,21 +249,35 @@ public class MyJudge extends JFrame{
 					announce.setText("Fail to open Sample!!!");
 				}
 			}
-			if (e.getSource() == change){
+			if (e.getSource() == change) {
 				try{
 					Formatter f = new Formatter(LINK + "Data\\Number_Of_Tests.txt");
 					f.format("%s",testNumInput.getText());
 					f.close();
-					f= new Formatter(LINK+"Data\\TimeLimit.txt");
+					f = new Formatter(LINK + "Data\\TimeLimit.txt");
 					f.format("%s",timeLimitInput.getText());
 					f.close();
-					f=new Formatter(LINK+"Data\\Error.txt");
+					f = new Formatter(LINK + "Data\\Error.txt");
 					f.format("%s",errorInput.getText());
 					f.close();
 					announce.setText("Activated changes!!!");
 				}
 				catch(Exception ee){
 					announce.setText("Fail to activate changes!!!");
+				}
+			}
+			if (e.getSource() == useAvailable) {
+				try{
+					File fileSub   = new File(LINK + "Submission\\main.cpp");
+					File fileSol   = new File(LINK + "Solution\\main.cpp");
+
+					submission.setText(new Scanner(fileSub).useDelimiter("^_^").next());
+					solution.setText(new Scanner(fileSol).useDelimiter("^_^").next());
+
+					announce.setText("Copy successfully!!!");
+				}
+				catch (Exception eee) {
+					announce.setText("Fail to Copy Texts!!!");
 				}
 			}
 		}

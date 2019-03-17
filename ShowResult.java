@@ -7,33 +7,33 @@ import java.awt.event.*;
 public class ShowResult extends JFrame{
 	static String LINK;
 	File report = new File (LINK + "Chambai\\report.txt");
-	String S;
+	String s;
 	String res;
-	JOptionPane showResult= new JOptionPane();
+	JOptionPane showResult = new JOptionPane();
 
 	public ShowResult(){
 		super();
 		try{
-			res= new Scanner(report).useDelimiter("\\A").next();
+			res = new Scanner(report).useDelimiter("\\A").next();
 		}
 		catch(Exception e){}
 
 		char st = res.charAt(0);
 		if (st == 'A'){
-			String S = "<html><font color=#4de80d font-weight=bold size=20> "+res;
-			showResult.showMessageDialog(null,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\GreenTick.png"));
+			String s = "<html><font color=#4de80d font-weight=bold size=20> " + res;
+			showResult.showMessageDialog(null, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\GreenTick.png"));
 		}
 		else if (st == 'C'){
-			String S = "<html><font color=#fef201 font-weight=bold size=20> "+res;
-			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Warning.png"));
+			String s = "<html><font color=#fef201 font-weight=bold size=20> " + res;
+			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Warning.png"));
 		}
 		else if (st == 'T' && res.charAt(1)=='I'){
-			String S = "<html><font color=#498cd3 font-weight=bold size=20> "+res;
-			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Clock.png"));
+			String s = "<html><font color=#498cd3 font-weight=bold size=20> " + res;
+			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Clock.png"));
 		}
 		else{
-			String S = "<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n"+res;
-			showResult.showMessageDialog(this,S,"Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\CE.png"));
+			String s = "<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n" + res;
+			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\CE.png"));
 		}
 	}
 	
