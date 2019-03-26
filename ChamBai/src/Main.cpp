@@ -15,7 +15,7 @@ int main() {
     }
     #endif
 
-
+	// Read Data
     ifstream numberTest(LINK + "Data\\Number_Of_Tests.txt");
     ifstream timeLimit(LINK + "Data\\TimeLimit.txt");
 
