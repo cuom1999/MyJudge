@@ -2,7 +2,8 @@
 
 using namespace std;
 
-bool checker(string input, string ans, string output){
+// return 1 if correct, 0 if wrong
+bool Judge::checker(string ans, string output, string input){
     
     ifstream ansPath(ans);
     ifstream outPath(output);

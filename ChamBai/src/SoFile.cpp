@@ -1,10 +1,12 @@
 #include "lib\MyJudge.h"
+#include <vector>
+#include <iostream>
 
 using namespace std;
 
-bool checker(string file1, string file2){
-    ifstream out1(file1);
-    ifstream out2(file2);
+bool Judge::checker(string fileAns, string fileOut, string fileInp) {
+    ifstream out1(fileAns);
+    ifstream out2(fileOut);
 
     string s3, s4;
 
@@ -38,8 +40,4 @@ bool checker(string file1, string file2){
     }
 
     return 1;
-}
-
-bool checker(string input, string ans, string output) {
-    return checker(ans, output);
 }

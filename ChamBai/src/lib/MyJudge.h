@@ -1,31 +1,36 @@
 #ifndef MYJUDGE_H
 #define MYJUDGE_H
 
-#include <bits/stdc++.h>
+#include <fstream>
+#include <string>
 
-extern double TIME_LIMIT;
-extern int TIME_ELAPSE;
-extern int NUMBER_OF_TESTS;
-extern std::ofstream REPORT;
-extern std::string LINK;
+class Judge {
 
-void getLink();
-void report();
+public:
+	Judge();
+	~Judge();
 
-void ce();
-void ok();
-void wrong(int iTest);
-void tle(int iTest);
+	enum Result {AC, WA, TLE, CE};
 
-std::string numberToString(int a);
-std::string testcase(int a);
+	Result judgeAll();
+	
+private:
+	
+	double TIME_LIMIT;
+	int    NUMBER_OF_TESTS;
+	int    timeElapsed;
 
-int measureTime(clock_t t1, clock_t t2);
+	std::string   LINK;
+	std::ofstream REPORT;
 
-int compile(std::string filecpp);
-void judge(int i);
-bool checker(std::string input, std::string ans, std::string output);
-
+	std::string   testCase(int a);
+	
+	void   report(Result res, int indexTest = 0);
+	bool   checker(std::string ans, std::string output, std::string input = "none");
+	bool   compile(std::string filecpp);
+	Result judgeTest(int i);
+	
+};
 
 
 #endif

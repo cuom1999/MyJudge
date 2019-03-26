@@ -5,33 +5,38 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ShowResult extends JFrame{
-	static String LINK;
-	File report = new File (LINK + "Chambai\\report.txt");
-	String s;
-	String res;
+
+	private String LINK = System.getProperty("user.dir") + "\\";
+	private File report = new File (LINK + "Chambai\\report.txt");
+	private String s;
+	private String res;
+	
 	JOptionPane showResult = new JOptionPane();
 
-	public ShowResult(){
+	public ShowResult() {
+
 		super();
-		try{
+
+		try {
 			res = new Scanner(report).useDelimiter("\\A").next();
 		}
 		catch(Exception e){}
 
-		char st = res.charAt(0);
-		if (st == 'A'){
+		int resLog = new Scanner(new File(LINK + "ChamBai\\resultLog.txt")).nextInt();
+
+		if (resLog == 0) { // AC
 			String s = "<html><font color=#4de80d font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(null, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\GreenTick.png"));
 		}
-		else if (st == 'C'){
+		else if (resLog == 1) { // WA
 			String s = "<html><font color=#fef201 font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Warning.png"));
 		}
-		else if (st == 'T' && res.charAt(1)=='I'){
+		else if (resLog == 2){ // TLE
 			String s = "<html><font color=#498cd3 font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Clock.png"));
 		}
-		else{
+		else{ //CE
 			String s = "<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n" + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\CE.png"));
 		}
@@ -45,23 +50,8 @@ public class ShowResult extends JFrame{
 		return newIcon;
 	}
 
-
-	private static void getLink(){
-		try {
-			File pathLink = new File("D:\\Path\\Path.txt");
-			Scanner getLink = new Scanner(pathLink);
-			LINK = getLink.next();
-		}
-		catch (Exception e) {
-			System.out.println("Wrong Link!");
-		}
-	}
-
-	public static void main(String[] args){
-		getLink();
-		ShowResult dialog = new ShowResult();
+	public static void main(String[] args) {
+		ShowResult app = new ShowResult();
 		System.exit(0);
 	}
-
-
 }

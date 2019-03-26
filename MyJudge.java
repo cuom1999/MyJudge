@@ -5,10 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MyJudge extends JFrame{
-	Desktop desktop = Desktop.getDesktop();
+	private Desktop desktop = Desktop.getDesktop();
 
-	public static String LINK;
-
+	public String LINK = System.getProperty("user.dir") + "\\";
 	public String optionList[] = {"SoFile", "Float", "Checker"};
 
 	JLabel testNum   		  = new JLabel("Number of Test: ");
@@ -25,7 +24,7 @@ public class MyJudge extends JFrame{
 	JButton button1 = new JButton("Open Generator");
 	JButton button2 = new JButton("Run Generator");
 	JButton button3 = new JButton("Compile and Run");
-	JButton button4 = new JButton("Run");
+	JButton button4 = new JButton("Open Checker");
 	JButton button5 = new JButton("Input");
 	JButton button6 = new JButton("Output");
 	JButton button7 = new JButton("Answer");
@@ -45,7 +44,7 @@ public class MyJudge extends JFrame{
 	File report = new File (LINK + "Chambai\\report.txt");
 	
 	public MyJudge(){
-		super("MyJudge");
+		super("My Judge");
 		
 		setLayout(fl);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -151,30 +150,58 @@ public class MyJudge extends JFrame{
 				}
 			} 
 			if (e.getSource() == button3){
+
+				
 				String sub = submission.getText();
 				String sol = solution.getText();
 
-				try{
-					Formatter copySub = new Formatter(LINK + "Submission\\main.cpp");
-					Formatter copySol = new Formatter(LINK + "Solution\\main.cpp");
-					copySub.format("%s", sub);
-					copySol.format("%s", sol);		
-					copySub.close();
-					copySol.close();			
-					announce.setText("Copy successfully!!!");
+				boolean areCompiled = false;
+
+				try {
+					String oldSub = new Scanner(new File(LINK + "Submission\\main.cpp")).useDelimiter("^_^").next();
+					String oldSol = new Scanner(new File(LINK + "Solution\\main.cpp")).useDelimiter("^_^").next();
+					
+					if (sub.equals(oldSub) && sol.equals(oldSol)) {
+						areCompiled = true;
+					}
 				}
-				catch (Exception eee) {
-					announce.setText("Fail to Copy Texts!!!");
+				catch(Exception e1) {
+					announce.setText("Something wrong with sub or sol folder");
 				}
+
+				// Check the last compilation first (CE or not)
+				try {
+					int resLog = new Scanner(new File(LINK + "ChamBai\\resultLog.txt")).nextInt();
+					areCompiled &= (resLog != 3);
+				}
+				catch (Exception e2){}
+
+				
+				if (areCompiled == false) {
+					// copy text
+					try {
+						Formatter copySub = new Formatter(LINK + "Submission\\main.cpp");
+						Formatter copySol = new Formatter(LINK + "Solution\\main.cpp");
+						copySub.format("%s", sub);
+						copySol.format("%s", sol);		
+						copySub.close();
+						copySol.close();			
+						announce.setText("Copy successfully!!!");
+					}
+					catch(Exception ee) {
+						announce.setText("Fail to copy!");
+					}
+				}				
 
 				int opt = option.getSelectedIndex();
 
 				if (opt == 0){ //So file
-					try{
-						desktop.open(new File(LINK + "ChamBai\\SoFile.exe"));
+					try {
+						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\SoFile.exe"));
+						else desktop.open(new File(LINK + "ChamBai\\SoFile_Compiled.exe"));
+						
 						announce.setText("Compile and Run successfully!!!");
 					}
-
 					catch(Exception eeee){
 						announce.setText("Fail to run SoFile.exe!!!");
 					}
@@ -182,7 +209,9 @@ public class MyJudge extends JFrame{
 
 				else if (opt == 1) { //Float
 					try{
-						desktop.open(new File(LINK + "ChamBai\\Float.exe"));
+						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\Float.exe"));
+						else desktop.open(new File(LINK + "ChamBai\\Float_Compiled.exe"));
+						
 						announce.setText("Compile and Run successfully!!!");
 					}
 
@@ -193,10 +222,11 @@ public class MyJudge extends JFrame{
 
 				else if (opt == 2) { //Checker
 					try{
-						desktop.open(new File(LINK+"ChamBai\\Checker.exe"));
+						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\Checker.exe"));
+						else desktop.open(new File(LINK + "ChamBai\\Checker_Compiled.exe"));
+						
 						announce.setText("Compile and Run successfully!!!");
 					}
-
 					catch(Exception eeee){
 						announce.setText("Fail to run Checker.exe!!!");
 					}
@@ -204,11 +234,11 @@ public class MyJudge extends JFrame{
 			}
 			if (e.getSource() == button4){
 				try{
-					desktop.open(new File(LINK+"ChamBai\\SoFile_Compiled.exe"));
-					announce.setText("Run successfully!!!");
+					desktop.open(new File(LINK + "ChamBai\\src\\Checker.cpp"));
+					announce.setText("Open checker successfully!!!");
 				}
 				catch(Exception eeee){
-					announce.setText("Fail to run SoFile_Compiled.exe!!!");
+					announce.setText("Fail to open checker!!!");
 				}
 			}
 			if (e.getSource() == button5){
@@ -283,21 +313,8 @@ public class MyJudge extends JFrame{
 		}
 	}
 
-	private static void getLink(){
-		try {
-			File pathLink = new File("D:\\Path\\Path.txt");
-			Scanner inpLink = new Scanner(pathLink);
-			LINK = inpLink.next();
-		}
-		catch (Exception e) {
-			System.out.println("Wrong Link!");
-		}
+	public static void main(String[] args) {
+		MyJudge app = new MyJudge();
 	}
-	
-	
-	
-	public static void main(String[] args){
-		getLink();
-		MyJudge app= new MyJudge();
-	}
+
 }

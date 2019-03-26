@@ -1,10 +1,12 @@
 #include "lib/MyJudge.h"
+#include <vector>
+#include <iomanip>
 
 using namespace std;
 
 double eps;
 
-void getEps() {
+void getEps(string LINK) {
     ifstream error(LINK + "Data\\Error.txt");
     error >> eps;
 }
@@ -14,11 +16,11 @@ bool cmp(double a, double b){
     return 0;
 }
 
-bool checker(string file1, string file2){
-    getEps();
+bool Judge::checker(string fileAns, string fileOut, string fileInp){
+    getEps(LINK);
 
-    ifstream out1(file1);
-    ifstream out2(file2);
+    ifstream out1(fileAns);
+    ifstream out2(fileOut);
 
     double s3, s4;
 
@@ -55,11 +57,6 @@ bool checker(string file1, string file2){
     }
 
     return 1;
-}
-
-
-bool checker(string input, string ans, string output) {
-    return checker(ans, output);
 }
 
 

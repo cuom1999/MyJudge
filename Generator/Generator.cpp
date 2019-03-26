@@ -81,14 +81,34 @@ int main()
         ofstream inp(testcase(iT));
         gen = mt19937_64(chrono::steady_clock::now().time_since_epoch().count());
 
-        ll n = Rand(1, 8);
+        int t = 100;
 
-        ll k = Rand(1, n);
+        inp << t << endl;
 
-        inp << n << " " << k << endl;
+        FOR (z, 1, t) {
+            bool q = 0;
+            char c[10][10];
+            int n = Rand(1, 5);
+            int m = Rand(1, 5);
 
-        FOR (i, 1, n) {
-            inp << Rand(1, 30) << " "; 
+            inp << n << " " << m << endl;
+
+            FOR (i, 1, n) {
+                FOR (j, 1, m) {
+                    int u = Rand(0, 1);
+                    q |= u;
+                    c[i][j] = u + '0';
+                }
+            }
+
+            if (!q) c[1][1] = '1';
+
+            FOR (i, 1, n) {
+                FOR (j, 1, m) inp << c[i][j];
+                inp << endl;
+            }
+
+
         }
     }
     
