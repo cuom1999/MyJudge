@@ -1,3 +1,2 @@
-WA on position 1 : Expected 101, found 102
-
-WRONG ANSWER ON TEST 1 ! 
+ACCEPTED
+Time: 225
