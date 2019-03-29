@@ -22,6 +22,7 @@ private:
 
 	std::string   LINK;
 	std::ofstream REPORT;
+	std::ofstream STATS;
 
 	std::string   testCase(int a);
 	

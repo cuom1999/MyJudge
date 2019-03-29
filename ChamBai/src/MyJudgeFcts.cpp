@@ -24,6 +24,7 @@ Judge::Judge() {
 
     LINK = getLink() + "\\";
     REPORT.open(LINK + "ChamBai\\report.txt");
+    STATS.open(LINK + "ChamBai\\stats.csv");
 }
 
 Judge::~Judge() {
@@ -65,16 +66,6 @@ void Judge::report(Judge::Result res, int indexTest) {
             REPORT << "Compiled Error" << endl;
             break;
     }
-
-    string LINKTmp = LINK;
-    LINKTmp.pop_back();
-
-    string disk;
-    
-    disk += LINKTmp[0]; 
-    disk += LINKTmp[1];
-
-    system((disk + " && cd " + LINKTmp + "&& java ShowResult").c_str());
 }
 
 
@@ -91,6 +82,7 @@ bool Judge::compile (string filecpp) {
 
 // judge test i
 Judge::Result Judge::judgeTest(int i) {
+    STATS << i << ",";
 
     clock_t t3 = clock();
 
@@ -102,6 +94,9 @@ Judge::Result Judge::judgeTest(int i) {
     clock_t t4 = clock();
 
     cout << "Judge's solution's time elapsed: " << measureTime(t3, t4) << endl << endl;
+
+    // print stats
+    STATS << measureTime(t3, t4) << ",";
 
     clock_t t1 = clock();
 
@@ -117,6 +112,9 @@ Judge::Result Judge::judgeTest(int i) {
     cout << "Your solution's time elapsed: " << measureTime(t1, t2) << endl << endl;
 
     timeElapsed = max(timeElapsed, measureTime(t1, t2));
+
+    // print stats
+    STATS << measureTime(t1, t2) << endl;
 
     if (timeElapsed > TIME_LIMIT) {
         cout << timeElapsed << endl;
@@ -153,6 +151,10 @@ Judge::Result Judge::judgeAll() {
 
     numberTest.close();
     timeLimit.close();
+
+    // print something to stats.csv
+    STATS << "Test,Judge,You" << endl;
+
 
     TIME_LIMIT *= 1000;
     

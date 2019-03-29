@@ -12,3 +12,4 @@ move "src\Float.exe" %cd%
 move "src\Float_Compiled.exe" %cd%
 
 echo Successful!
+pause

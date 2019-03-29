@@ -1,4 +1,3 @@
-@echo off
-javac MyJudge.java
-javac ShowResult.java
+cd Interface
+javac *.java
 pause

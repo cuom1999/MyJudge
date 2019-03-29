@@ -4,10 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MyJudge extends JFrame{
+public class MyJudge extends Lib{
 	private Desktop desktop = Desktop.getDesktop();
-
-	public String LINK = System.getProperty("user.dir") + "\\";
+	
 	public String optionList[] = {"SoFile", "Float", "Checker"};
 
 	JLabel testNum   		  = new JLabel("Number of Test: ");
@@ -18,13 +17,13 @@ public class MyJudge extends JFrame{
 	JTextField errorInput 	  = new JTextField("", 8);
 	JButton change 			  = new JButton("Activate Changes!");
 	JButton useAvailable	  = new JButton("Use Available Files");
-	JComboBox option 		  = new JComboBox(optionList);
+	JComboBox<String> option  = new JComboBox<String>(optionList);
 
 
 	JButton button1 = new JButton("Open Generator");
 	JButton button2 = new JButton("Run Generator");
 	JButton button3 = new JButton("Compile and Run");
-	JButton button4 = new JButton("Open Checker");
+	JButton button4 = new JButton("Open Stats");
 	JButton button5 = new JButton("Input");
 	JButton button6 = new JButton("Output");
 	JButton button7 = new JButton("Answer");
@@ -150,7 +149,6 @@ public class MyJudge extends JFrame{
 				}
 			} 
 			if (e.getSource() == button3){
-
 				
 				String sub = submission.getText();
 				String sol = solution.getText();
@@ -195,47 +193,41 @@ public class MyJudge extends JFrame{
 
 				int opt = option.getSelectedIndex();
 
+				// run judge
+
+				String judgeFile = "";
+
 				if (opt == 0){ //So file
-					try {
-						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\SoFile.exe"));
-						else desktop.open(new File(LINK + "ChamBai\\SoFile_Compiled.exe"));
-						
-						announce.setText("Compile and Run successfully!!!");
-					}
-					catch(Exception eeee){
-						announce.setText("Fail to run SoFile.exe!!!");
+					if (areCompiled == false) judgeFile = "SoFile.exe";
+					else {
+						judgeFile = "SoFile_Compiled.exe";
 					}
 				}
 
 				else if (opt == 1) { //Float
-					try{
-						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\Float.exe"));
-						else desktop.open(new File(LINK + "ChamBai\\Float_Compiled.exe"));
-						
-						announce.setText("Compile and Run successfully!!!");
-					}
-
-					catch(Exception eeee){
-						announce.setText("Fail to run Float.exe!!!");
+					if (areCompiled == false) judgeFile = "Float.exe";
+					else {
+						judgeFile = "Float_Compiled.exe";
 					}
 				}
 
 				else if (opt == 2) { //Checker
-					try{
-						if (areCompiled == false) desktop.open(new File(LINK + "ChamBai\\Checker.exe"));
-						else desktop.open(new File(LINK + "ChamBai\\Checker_Compiled.exe"));
-						
-						announce.setText("Compile and Run successfully!!!");
-					}
-					catch(Exception eeee){
-						announce.setText("Fail to run Checker.exe!!!");
+					if (areCompiled == false) judgeFile = "Checker.exe";
+					else {
+						judgeFile = "Checker_Compiled.exe";
 					}
 				}
+
+				String fileDir = LINK + "ChamBai\\" + judgeFile;
+				// call Judge.java
+				System.out.println(fileDir);
+
+				Judge judgeUI = new Judge(fileDir);
 			}
 			if (e.getSource() == button4){
 				try{
-					desktop.open(new File(LINK + "ChamBai\\src\\Checker.cpp"));
-					announce.setText("Open checker successfully!!!");
+					desktop.open(new File(LINK + "ChamBai\\stats.csv"));
+					announce.setText("Open stats.csv successfully!!!");
 				}
 				catch(Exception eeee){
 					announce.setText("Fail to open checker!!!");

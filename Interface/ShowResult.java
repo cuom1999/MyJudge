@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ShowResult extends JFrame{
+public class ShowResult extends Lib{
 
-	private String LINK = System.getProperty("user.dir") + "\\";
 	private File report = new File (LINK + "Chambai\\report.txt");
 	private String s;
 	private String res;
@@ -15,20 +14,26 @@ public class ShowResult extends JFrame{
 
 	public ShowResult() {
 
-		super();
+		super("Result");
 
 		try {
 			res = new Scanner(report).useDelimiter("\\A").next();
 		}
 		catch(Exception e){}
 
-		int resLog = new Scanner(new File(LINK + "ChamBai\\resultLog.txt")).nextInt();
+		int resLog = 0;
+		
+		try {
+			resLog = new Scanner(new File(LINK + "ChamBai\\resultLog.txt")).nextInt();
+		}
+		catch(Exception e) {
+		}
 
 		if (resLog == 0) { // AC
 			String s = "<html><font color=#4de80d font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(null, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\GreenTick.png"));
 		}
-		else if (resLog == 1) { // WA
+		else if (resLog == 3) { // CE
 			String s = "<html><font color=#fef201 font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Warning.png"));
 		}
@@ -36,7 +41,7 @@ public class ShowResult extends JFrame{
 			String s = "<html><font color=#498cd3 font-weight=bold size=20> " + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\Clock.png"));
 		}
-		else{ //CE
+		else{ //WA
 			String s = "<html><font color=red font-weight=bold size=20>WRONG ANSWER!\n" + res;
 			showResult.showMessageDialog(this, s, "Result",JOptionPane.INFORMATION_MESSAGE,processIcon("Icon\\CE.png"));
 		}
