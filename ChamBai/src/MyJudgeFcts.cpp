@@ -42,29 +42,29 @@ string Judge::testCase(int a) {
 }
 
 void Judge::report(Judge::Result res, int indexTest) {
-    
+
     ofstream resLog(LINK + "ChamBai\\resultLog.txt");
     resLog << res;
     resLog.close();
 
     switch(res) {
         case Judge::AC:
-            REPORT << "ACCEPTED" << endl;
-            REPORT << "Time: " << timeElapsed << endl;
-            break;
+        REPORT << "ACCEPTED" << endl;
+        REPORT << "Time: " << timeElapsed << endl;
+        break;
 
         case Judge::WA:
-            REPORT << "WRONG ANSWER ON TEST " << indexTest << " ! " << endl;
-            break;
+        REPORT << "WRONG ANSWER ON TEST " << indexTest << " ! " << endl;
+        break;
         
         case Judge::TLE:
-            REPORT << "TIME LIMIT EXCEEDED ON TEST " << indexTest << " ! " << endl << endl;
-            REPORT << "TIME: " << timeElapsed << endl;
-            break;
+        REPORT << "TIME LIMIT EXCEEDED ON TEST " << indexTest << " ! " << endl << endl;
+        REPORT << "TIME: " << timeElapsed << endl;
+        break;
 
         case Judge::CE:
-            REPORT << "Compiled Error" << endl;
-            break;
+        REPORT << "Compiled Error" << endl;
+        break;
     }
 }
 
@@ -74,7 +74,6 @@ bool Judge::compile (string filecpp) {
     string file_exe = file + ".exe";
 
     string ope = "g++ -g -O2 -static -std=c++14 -Wl,--stack=268435456 -O2 " + filecpp + " -o " + file_exe;
-
     int u = system(ope.c_str());
 
     return (u == 0);
@@ -132,6 +131,28 @@ Judge::Result Judge::judgeTest(int i) {
     return Judge::AC;
 }
 
+void Judge::warmUp() {
+    ifstream data(testCase(1));
+    ofstream inp(LINK + "ChamBai\\ExportFile\\input.txt");
+
+    string s;
+    while (getline(data,s)) {inp << s << "\n";}
+
+    data.close();
+    inp.close();
+
+    string ope = LINK + "Solution\\main.exe < ";
+    ope += LINK + "ChamBai\\ExportFile\\input.txt > ";
+    ope += LINK + "ChamBai\\ExportFile\\ans.txt";
+    system(ope.c_str());
+    
+    string ope2 = LINK + "Submission\\main.exe <";
+    ope2 += LINK + "ChamBai\\ExportFile\\input.txt >";
+    ope2 += LINK + "ChamBai\\ExportFile\\output.txt";
+
+    system(ope2.c_str());
+}
+
 Judge::Result Judge::judgeAll() {
 
     #ifndef COMPILED
@@ -155,11 +176,11 @@ Judge::Result Judge::judgeAll() {
     // print something to stats.csv
     STATS << "Test,Judge,You" << endl;
 
-
+    warmUp();
     TIME_LIMIT *= 1000;
-    
+
     for (int iTest = 1; iTest <= NUMBER_OF_TESTS; iTest++) {
-        
+
         cout << endl;
         cout << endl;
         cout << "Running on test " << iTest << "..." << endl;
@@ -169,15 +190,15 @@ Judge::Result Judge::judgeAll() {
         // copy input 
         ifstream data(testCase(iTest));
         ofstream inp(LINK + "ChamBai\\ExportFile\\input.txt");
-        
+
         string s;
-        while (getline(data,s)) {inp << s << endl;}
+        while (getline(data,s)) {inp << s << "\n";}
 
         data.close();
         inp.close();
 
         Judge::Result res = judgeTest(iTest);
-        
+
         if (res != Judge::AC) {
             report(res, iTest);
             return res;

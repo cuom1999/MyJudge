@@ -219,9 +219,8 @@ public class MyJudge extends Lib{
 				}
 
 				String fileDir = LINK + "ChamBai\\" + judgeFile;
+				
 				// call Judge.java
-				System.out.println(fileDir);
-
 				Judge judgeUI = new Judge(fileDir);
 			}
 			if (e.getSource() == button4){

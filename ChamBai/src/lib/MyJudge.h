@@ -25,7 +25,8 @@ private:
 	std::ofstream STATS;
 
 	std::string   testCase(int a);
-	
+
+	void   warmUp();	
 	void   report(Result res, int indexTest = 0);
 	bool   checker(std::string ans, std::string output, std::string input = "none");
 	bool   compile(std::string filecpp);

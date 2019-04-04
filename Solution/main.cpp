@@ -23,21 +23,61 @@ using namespace std;
 typedef pair < int, int > pii;
 typedef pair < ll, ll > pll;
 
-ll a[100005];
+ll d[50][200005];
+ll s[5005];
+ll k;
 
-map<int, bool> color[100005];
+const ll K = 998244353;
 
-ll calc(ll x, ll n) {
-    return x * (x - 1) / 2 + (n - 1 - x) * (n - 2 - x) / 2;
+ll solve(vector<int> a) {
+	int n = a.size();
+
+	memset(d, 0, sizeof(d));
+	memset(s, 0, sizeof(s));
+
+	if (a[0] == -1) {
+		FOR (i, 1, k) d[0][i] = 1;
+		s[0] = k;
+	}
+	else {
+		d[0][a[0]] = 1;
+		s[0] = 1;
+	}
+
+	FOR (i, 1, n - 1) {
+		if (a[i] == -1) {
+			FOR (j, 1, k) {
+				d[i][j] = (s[i - 1] - d[i - 1][j] + K) % K;
+				s[i] = (s[i] + d[i][j]) % K;
+			}
+		}
+		else {
+			d[i][a[i]] = s[i - 1] - d[i - 1][a[i]];
+			s[i] = d[i][a[i]];
+		}
+	}	
+	return s[n - 1];
 }
 
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(NULL);
-    ll n, m;
-    cin >> n >> m;
- 	 
-		cout << n + m / 2 * 2<< endl;
+	
+	int n;
+   	cin >> n >> k;
+
+   	vector<int> odd, even;
+
+   	FOR (i, 1, n) {
+   		int x;
+   		cin >> x;
+   		if (i % 2) odd.pb(x);
+   		else even.pb(x);
+   	}
+
+   	ll ans = solve(odd) * solve(even) % K;
+   	cout << ans << endl;    
+	
     return 0;
 }
