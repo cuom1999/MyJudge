@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 import javax.swing.text.DefaultCaret;
 
-public class Judge extends JFrame{
+public class Judge extends Lib{
 	
 	JTextArea textArea 	   = new JTextArea(26, 60);
 	JScrollPane scrollPane = new JScrollPane(textArea);

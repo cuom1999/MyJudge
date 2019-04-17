@@ -44,7 +44,6 @@ public class MyJudge extends Lib{
 	
 	public MyJudge(){
 		super("My Judge");
-		
 		setLayout(fl);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
