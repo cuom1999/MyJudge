@@ -23,11 +23,11 @@ import javax.swing.text.DefaultCaret;
 
 public class Judge extends Lib{
 	
-	JTextArea textArea 	   = new JTextArea(26, 60);
-	JScrollPane scrollPane = new JScrollPane(textArea);
-	DefaultCaret caret     = (DefaultCaret) textArea.getCaret();
-	ProcessBuilder pb;
-	Process p;
+	private JTextArea textArea 	   = new JTextArea(26, 60);
+	private JScrollPane scrollPane = new JScrollPane(textArea);
+	private DefaultCaret caret     = (DefaultCaret) textArea.getCaret();
+	private ProcessBuilder pb;
+	private Process p;
 
 	
 	public Judge(String fileDir) {
@@ -96,6 +96,7 @@ public class Judge extends Lib{
 
 			protected void done() {
 				ShowResult sr = new ShowResult();
+				p.destroy();
 				setVisible(false);
 			}
 		};

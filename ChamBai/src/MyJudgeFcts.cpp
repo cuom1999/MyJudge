@@ -28,6 +28,8 @@ Judge::Judge() {
 }
 
 Judge::~Judge() {
+    system(("taskkill /f /im " + LINK + "Submission\\main.exe").c_str());
+    system(("taskkill /f /im " + LINK + "Solution\\main.exe").c_str());
     REPORT.close();
 } 
 

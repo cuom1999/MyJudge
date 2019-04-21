@@ -67,7 +67,7 @@ int main()
     cin.tie(NULL);
     LINK = getLink() + "\\";
 
-    int numTests = 1;
+    int numTests = 100;
 
     // delete the testcase folder first
     system(("rmdir /s /q " + LINK + "TestCases").c_str()); 
@@ -82,14 +82,18 @@ int main()
         ofstream inp(testcase(iT));
         gen = mt19937_64(chrono::steady_clock::now().time_since_epoch().count());
 
-        inp << 19 * 19 << endl;
+        ll t = Rand(1, 100);
+        inp << t << endl;
+        FOR (z, 1, t) {
+            ll n = Rand(1, 1000);
+            ll s = Rand(1, 5);
 
-        FOR (i, 2, 20) {
-            FOR (j, 2, 20) {
-                inp << i << " " << j << endl;
+            inp << n << " " << s << endl;
+            FOR (i, 1, n) {
+                inp << Rand(1, 100000) << " ";
             }
+            inp << endl;
         }
-
     }
     
     return 0;
